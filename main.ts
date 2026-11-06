@@ -3,6 +3,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile19`, function (sprite, 
     mySprite.setPosition(69, 52)
     myEnemy.setPosition(22, 20)
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Gamestage == 1) {
+        if (mySprite.vy == 0) {
+            mySprite.vy = -130
+        }
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
     mySprite.startEffect(effects.ashes, 1000)
     mySprite.setPosition(69, 52)
@@ -34,11 +41,6 @@ scene.onOverlapTile(SpriteKind.Player, sprites.jewels.jewel4, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, sprites.jewels.jewel5, function (sprite, location) {
 	
 })
-controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (mySprite.vy == 0) {
-        mySprite.vy = -130
-    }
-})
 scene.onOverlapTile(SpriteKind.Player, sprites.jewels.jewel3, function (sprite, location) {
 	
 })
@@ -54,6 +56,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, 
 })
 let myEnemy: Sprite = null
 let mySprite: Sprite = null
+let Gamestage = 0
+Gamestage = 0
 music.play(music.createSong(hex`0078000408020402001c000c960064006d019001000478002c010000640032000000000a0600050c0000000100012c20002100012c03001c0001dc00690000045e0100040000000000000000000005640001040003980000000100021e2c01000200012c04000500011e08000900021e2909000a0001290c000d00011e10001100021e2511001200012514001500011e18001900021e2919001a0001291c001d00011e20002100021e2221002200012224002500011e28002900021e2429002a0001242c002d00011e30003100021e2a31003200012a34003500011e38003900021e2739003a0001273c003d00011e06001c00010a006400f401640000040000000000000000000000000000000002600000000100011b01000200011b02000300011b03000400011b10001100011d11001200011d12001300011d13001400011d20002100011b21002200011b22002300011b23002400011b30003100011d31003200011d32003300011d33003400011d09010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c800340000000100020305080009000105100011000205081800190001052000210002030528002900010530003100020507380039000105`), music.PlaybackMode.LoopingInBackground)
 scene.setBackgroundImage(img`
     8fffffffffffffffffffffffff88fffff88ffff8998889999999989988888989999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -306,6 +310,7 @@ miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selecte
             . . . . . f f f f f f . . . . . 
             . . . . . f f . . f f . . . . . 
             `, SpriteKind.Player)
+        Gamestage += 1
         tiles.setCurrentTilemap(tilemap`Level0`)
         mySprite.setImage(img`
             . . . . . . . . . . . . . . . . 
@@ -368,6 +373,7 @@ miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selecte
             . . . . . f f . . f f . . . . . 
             `, SpriteKind.Player)
         tiles.setCurrentTilemap(tilemap`Level0`)
+        Gamestage += 1
         mySprite.setImage(img`
             . . f f f f f . . . . . . . . . 
             . f f 5 5 5 5 f f f . . . . . . 
@@ -429,6 +435,7 @@ miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selecte
             . . . . . f f . . f f . . . . . 
             `, SpriteKind.Player)
         tiles.setCurrentTilemap(tilemap`Level0`)
+        Gamestage += 1
         mySprite.setImage(img`
             . . . . . . . . . . . . . . . . 
             . . . . f f f . . . . . . . . . 
