@@ -28,10 +28,19 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, l
     mySprite.setPosition(69, 52)
     myEnemy.setPosition(22, 20)
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.jewels.jewel4, function (sprite, location) {
+	
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.jewels.jewel5, function (sprite, location) {
+	
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.vy == 0) {
         mySprite.vy = -130
     }
+})
+scene.onOverlapTile(SpriteKind.Player, sprites.jewels.jewel3, function (sprite, location) {
+	
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
     mySprite.startEffect(effects.ashes, 1000)
@@ -318,7 +327,7 @@ miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selecte
             `)
         scene.cameraFollowSprite(mySprite)
         controller.moveSprite(mySprite, 100, 0)
-        mySprite.ay = 500
+        mySprite.ay = 300
         myEnemy = sprites.create(img`
             ..........fffcc...fffffff...........
             ..........fbbbbcffbbbbbbbf..........
