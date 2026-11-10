@@ -360,26 +360,28 @@ scene.onHitWall(SpriteKind.Projectile, function (sprite, location) {
     tiles.setWallAt(location, false)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (projectile >= 1) {
-        shot = sprites.createProjectileFromSprite(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . f f f f f f . . . . . 
-            . . f f f d d d d d d f f f . . 
-            . f 1 1 1 1 1 1 1 1 1 d d d f . 
-            f 1 1 1 1 1 1 1 1 1 1 1 1 1 d f 
-            . f 1 1 1 1 1 1 1 1 1 1 1 1 f . 
-            . . f f f 1 1 1 1 1 1 f f f . . 
-            . . . . . f f f f f f . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `, mySprite, controller.dx(10000), 0)
-        projectile += -1
+    if (Gamestage == 1) {
+        if (projectile >= 1) {
+            shot = sprites.createProjectileFromSprite(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . f f f f f f . . . . . 
+                . . f f f d d d d d d f f f . . 
+                . f 1 1 1 1 1 1 1 1 1 d d d f . 
+                f 1 1 1 1 1 1 1 1 1 1 1 1 1 d f 
+                . f 1 1 1 1 1 1 1 1 1 1 1 1 f . 
+                . . f f f 1 1 1 1 1 1 f f f . . 
+                . . . . . f f f f f f . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, mySprite, controller.dx(10000), 0)
+            projectile += -1
+        }
     }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenNorth, function (sprite, location) {
@@ -724,7 +726,7 @@ MyMenu.setPosition(80, 60)
 miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selectedIndex) {
     miniMenu.close(MyMenu)
     if (selectedIndex == 0) {
-        game.splash("You have 5 lifes and 5 Ammos per life")
+        game.splash("You have 3 lifes and 5 Ammos per life")
         mySprite = sprites.create(img`
             . . . . . . f f f f . . . . . . 
             . . . . f f f 2 2 f f f . . . . 
