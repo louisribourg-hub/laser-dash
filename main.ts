@@ -5,21 +5,27 @@ function jump2 () {
 	
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile19`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
     myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.coins, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.bubbles, 200)
+    music.play(music.melodyPlayable(music.baDing), music.PlaybackMode.UntilDone)
     info.changeScoreBy(1)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenSouth, function (sprite, location) {
-    level = 2
+    if (info.player1.score() == 3) {
+        game.gameOver(true)
+    } else {
+        game.splash("Du brauchst alle 3 münzen!!!")
+        game.gameOver(false)
+    }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Gamestage == 1) {
@@ -38,14 +44,15 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile15`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
     myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (animationdesign == 1) {
@@ -174,23 +181,22 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile12`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(155, 0)
     mySprite.setPosition(69, 52)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile18`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
-    mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
-    myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     if (animationdesign == 1) {
@@ -202,14 +208,14 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile21`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
     myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (animationdesign == 1) {
@@ -338,17 +344,19 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile2`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
     myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 info.onLifeZero(function () {
-    game.splash("Game Over")
+    game.gameOver(false)
+    game.setGameOverMessage(false, "GAME OVER!")
     game.reset()
 })
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
@@ -385,118 +393,77 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 . . . . . . . . . . . . . . . . 
                 `, mySprite, controller.dx(10000), 0)
             projectile += -1
+            music.play(music.melodyPlayable(music.pewPew), music.PlaybackMode.UntilDone)
+        } else {
+            music.play(music.melodyPlayable(music.knock), music.PlaybackMode.UntilDone)
         }
     }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.doorOpenNorth, function (sprite, location) {
-    level = 2
+    if (info.player1.score() == 3) {
+        game.gameOver(true)
+    } else {
+        game.splash("Du brauchst alle 3 münzen!!!")
+        game.gameOver(false)
+    }
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(shot)
     sprites.destroy(myEnemy)
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile14`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
     myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile11`, function (sprite, location) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
     myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.ashes, 1000)
+    music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
-    info.changeLifeBy(-1)
-    projectile = 5
     mySprite.setPosition(69, 52)
     mySprite.setPosition(155, 0)
     myEnemy.setPosition(22, 20)
     myEnemy.setPosition(0, 120)
     mySprite.startEffect(effects.warmRadial, 1000)
+    music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
+    info.changeLifeBy(-1)
+    game.splash("Try Again   Tipp: Benutze \"B\" um Wände abzuschiessen.")
+    projectile = 5
 })
 let shot: Sprite = null
 let myEnemy: Sprite = null
+let coin3: Sprite = null
+let coin2: Sprite = null
+let coin: Sprite = null
 let mySprite: Sprite = null
 let animationdesign = 0
 let Gamestage = 0
 let dublejump = 0
-let level = 0
 let jump = 0
 let projectile = 0
 info.setLife(3)
 info.setScore(0)
-let coin = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . f f f f f f f . . . . . 
-    . . . f 5 5 5 5 5 5 5 f . . . . 
-    . . f 5 5 5 5 5 5 5 5 5 f . . . 
-    . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
-    . . f 5 5 5 5 5 5 5 5 5 f . . . 
-    . . . f 5 5 5 5 5 5 5 f . . . . 
-    . . . . f f f f f f f . . . . . 
-    `, SpriteKind.coins)
-let coin2 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . f f f f f f f . . . . . 
-    . . . f 5 5 5 5 5 5 5 f . . . . 
-    . . f 5 5 5 5 5 5 5 5 5 f . . . 
-    . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
-    . . f 5 5 5 5 5 5 5 5 5 f . . . 
-    . . . f 5 5 5 5 5 5 5 f . . . . 
-    . . . . f f f f f f f . . . . . 
-    `, SpriteKind.coins)
-let coin3 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . f f f f f f f . . . . . 
-    . . . f 5 5 5 5 5 5 5 f . . . . 
-    . . f 5 5 5 5 5 5 5 5 5 f . . . 
-    . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
-    . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
-    . . f 5 5 5 5 5 5 5 5 5 f . . . 
-    . . . f 5 5 5 5 5 5 5 f . . . . 
-    . . . . f f f f f f f . . . . . 
-    `, SpriteKind.coins)
 projectile = 5
 jump = 0
-level = 1
+let level = 1
 dublejump = 0
 Gamestage = 0
 animationdesign = 0
-music.play(music.createSong(hex`0078000408020402001c000c960064006d019001000478002c010000640032000000000a0600050c0000000100012c20002100012c03001c0001dc00690000045e0100040000000000000000000005640001040003980000000100021e2c01000200012c04000500011e08000900021e2909000a0001290c000d00011e10001100021e2511001200012514001500011e18001900021e2919001a0001291c001d00011e20002100021e2221002200012224002500011e28002900021e2429002a0001242c002d00011e30003100021e2a31003200012a34003500011e38003900021e2739003a0001273c003d00011e06001c00010a006400f401640000040000000000000000000000000000000002600000000100011b01000200011b02000300011b03000400011b10001100011d11001200011d12001300011d13001400011d20002100011b21002200011b22002300011b23002400011b30003100011d31003200011d32003300011d33003400011d09010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c800340000000100020305080009000105100011000205081800190001052000210002030528002900010530003100020507380039000105`), music.PlaybackMode.LoopingInBackground)
+music.play(music.createSong(hex`00ac000408100400001c00010a006400f4016400000400000000000000000000000000050000048c0100000300019c08000b00011b10001300019c18001b00011920002400019c28002b00011b30003300019c38003b00011940004300019c48004b00011b50005300019c58005b00011960006300019c68006b00011b70007300019c78007b00011980008400011b88008b00011990009400011b98009b000197a000a300011ba800ac000119b000b400011bb800bc000197c000c4000119c800cc000197d000d3000119d800dc000195e000e3000119e800ec000197f000f3000119f400f700011bf800fb00019c00010301019c08010b01011b10011301019c18011b01011920012401019c28012b01011b30013301019c38013b01011940014301019c48014b01011b50015301019c58015b01011960016301019c68016b01011b70017301019c78017b01011980018401011b88018b01011990019401011b98019b010197a001a301011ba801ac010119b001b401011bb801bc010197c001c401011ec801cc01019cd001d301011ed801dc01011be001e301011ee801ec01019cf001f301011bf401f701019cf801fb01011e02001c000c960064006d019001000478002c010000640032000000000a060005780010002000019c20003000011b30004900011950006000019c60007000011b7000840001199000a000011ba000b0000119b000c0000197c000e300011910012001019c20013001011b30014901011950016001019c60017001011b7001840101199001a001011ba001b0010119b001c0010197c001e301011403001c0001dc00690000045e0100040000000000000000000005640001040003560100001f00010d20003e0001144000580001955800600001146000780001127800800001908000a0000114a000b800010db800c0000114c000d0000112d000e0000190e000f000010ff0000001018b00010401010d0401070101a80c010f0101271401180101a81c011f0101272001240101142401280101a82c012f0101273401380101a83c01400101274001440101954401480101a84c014f01012754015701012558015c0101145c015f0101276001640101126401670101276c016f01012574017801012778017c0101907c01800101258001840101148401870101278c01900101a894019801012a9c01a00101a8a001a401010da401a7010127ac01b00101a3b401b70101a3b801bc010114bc01c0010120c001c4010108c401c8010120cc01d00101a3d001d401010fd401d90101a1dc01e0010120e001e4010108e401e80101a1ec01f00101a8f001f401018bf401f801012706001c00010a006400f401640000040000000000000000000000000000000002a0010000080002a82c0800100001251000180002a82c1800200001252000280002a82c2800300001253000380002a82c3800400001254000480002a82c4800500001a15000580002a82c5800600001a16000680002a82c6800700001a17000780002a82c7800800001a18000880002272a8800900001209000980002272a9800a0000120a000a80002272aa800b0000120b000b80002272ab800c0000120c000c8000225a8c800d000011ed000d8000225a8d800e000011ee000e8000225a8e800f000011ef000f8000225a8f8000001011e0001080102a82c0801100101251001180102a82c1801200101252001280102a82c2801300101253001380102a82c3801400101254001480102a82c4801500101a15001580102a82c5801600101a16001680102a82c6801700101a17001780102a82c7801800101a18001880102272a8801900101209001980102272a9801a0010120a001a80102272aa801b0010120b001b80102272ab801c0010120c001c80102272ac801d0010120d001d80102272ad801e0010120e001e80102272ae801f0010120f001f80102272af801000201200033371e253434222c39312e2c2f232a253629332b27232e2f1b0a34223129263e3133371e253434222c39312e2c2f232a253629332b27232e2f1b0a34223129263e3102374749334c4f3e42495c374749334c4f3e42495c0336403534432d393c45363b343e363147403b40414a424335484836343643434b452d3f395d4c30393c3f3f3745363644373b333a342c383e3706362b362a3d324034483943413a3c48354e47373547333c3e37373e3536363b3f483e503e452f4c3443344232452842324e2736323134392b3e2e3c2a3b393a39`), music.PlaybackMode.LoopingInBackground)
 scene.setBackgroundImage(img`
     8fffffffffffffffffffffffff88fffff88ffff8998889999999989988888989999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
     ffffffffffffffffffffffffff8fffff88ff9f88889889999999989998888898999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -770,6 +737,60 @@ miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selecte
             . . . f f f f f f . . . . . . . 
             `)
         mySprite.setPosition(155, 0)
+        coin = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
+        coin2 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
+        coin3 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
         tiles.placeOnTile(coin, tiles.getTileLocation(35, 6))
         tiles.placeOnTile(coin2, tiles.getTileLocation(62, 3))
         tiles.placeOnTile(coin3, tiles.getTileLocation(92, 3))
@@ -1201,23 +1222,77 @@ miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selecte
         Gamestage += 1
         mySprite.setImage(img`
             . . . . . . . . . . . . . . . . 
-            . . . . 1 1 1 1 1 1 . . . . . . 
-            . . . 1 f f f f f f 1 . . . . . 
-            . . 1 f f f f f f f f 1 . . . . 
-            . . 1 f f f 1 f f 1 f 1 . . . . 
-            . . 1 f f f 1 f f 1 f 1 . . . . 
-            . . 1 c f f f f f f c 1 . . . . 
-            . . . 1 c c c c c c 1 . . . . . 
-            . . . . 1 1 1 1 1 1 . . . . . . 
-            . . . . 1 c c c c 1 . . . . . . 
-            . . . . 1 f f 1 c 1 . . . . . . 
-            . . . . 1 f f 1 c 1 . . . . . . 
-            . . . . 1 1 1 1 1 1 . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
+            . . . 1 1 1 1 1 1 . . . . . . . 
+            . . 1 f f f f f f 1 . . . . . . 
+            . 1 f f f f f f f f 1 . . . . . 
+            . 1 f f f 1 f f 1 f 1 . . . . . 
+            . 1 f f f 1 f f 1 f 1 . . . . . 
+            . 1 c f f f f f f c 1 . . . . . 
+            . . 1 c c c c c c 1 . . . . . . 
+            . . . 1 1 1 1 1 1 . . . . . . . 
+            . . . 1 c c c c 1 . . . . . . . 
+            . . . 1 f f 1 c 1 . . . . . . . 
+            . . . 1 f f 1 c 1 . . . . . . . 
+            . . . 1 1 1 1 1 1 . . . . . . . 
             `)
         mySprite.setPosition(155, 0)
+        coin = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
+        coin2 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
+        coin3 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
         tiles.placeOnTile(coin, tiles.getTileLocation(35, 6))
         tiles.placeOnTile(coin2, tiles.getTileLocation(62, 3))
         tiles.placeOnTile(coin3, tiles.getTileLocation(92, 3))
@@ -1649,23 +1724,77 @@ miniMenu.onButtonPressed(MyMenu, miniMenu.Button.A, function (selection, selecte
         Gamestage += 1
         mySprite.setImage(img`
             . . . . . . . . . . . . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . f 3 3 3 3 3 3 f . . . . . 
-            . . f 2 2 2 2 2 2 2 2 f . . . . 
-            . . f 4 4 4 f 4 4 f 4 f . . . . 
-            . . f 5 5 5 f 5 5 f 5 f . . . . 
-            . . f 7 7 7 7 7 7 7 7 f . . . . 
-            . . . f 6 6 6 6 6 6 f . . . . . 
-            . . . . f f f f f f . . . . . . 
-            . . . . f 8 8 8 8 f . . . . . . 
-            . . . . f a a f a f . . . . . . 
-            . . . . f 1 1 f 1 f . . . . . . 
-            . . . . f f f f f f . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
+            . . . f f f f f f . . . . . . . 
+            . . f 3 3 3 3 3 3 f . . . . . . 
+            . f 2 2 2 2 2 2 2 2 f . . . . . 
+            . f 4 4 4 f 4 4 f 4 f . . . . . 
+            . f 5 5 5 f 5 5 f 5 f . . . . . 
+            . f 7 7 7 7 7 7 7 7 f . . . . . 
+            . . f 6 6 6 6 6 6 f . . . . . . 
+            . . . f f f f f f . . . . . . . 
+            . . . f 8 8 8 8 f . . . . . . . 
+            . . . f a a f a f . . . . . . . 
+            . . . f 1 1 f 1 f . . . . . . . 
+            . . . f f f f f f . . . . . . . 
             `)
         mySprite.setPosition(155, 0)
+        coin = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
+        coin2 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
+        coin3 = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . f f f f f f f . . . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . f 5 5 5 5 5 f 5 5 5 5 5 f . . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            f 5 5 5 5 5 f 4 4 5 5 5 5 5 f . 
+            . f 5 5 5 5 5 4 5 5 5 5 5 f . . 
+            . . f 5 5 5 5 5 5 5 5 5 f . . . 
+            . . . f 5 5 5 5 5 5 5 f . . . . 
+            . . . . f f f f f f f . . . . . 
+            `, SpriteKind.coins)
         tiles.placeOnTile(coin, tiles.getTileLocation(35, 6))
         tiles.placeOnTile(coin2, tiles.getTileLocation(62, 3))
         tiles.placeOnTile(coin3, tiles.getTileLocation(92, 3))
